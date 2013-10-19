@@ -4,3 +4,10 @@
 require File.expand_path('../config/application', __FILE__)
 
 TouchTypeIn::Application.load_tasks
+
+namespace :spec do
+  desc "Test the Javascript using mocha-phantomjs"
+  task :js do
+    sh 'mocha-phantomjs -R tap public/tests.html'
+  end
+end
