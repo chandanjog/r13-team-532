@@ -26,6 +26,8 @@ gem 'jbuilder', '~> 1.2'
 
 gem 'websocket-rails'
 
+gem 'mina', github: 'nadarei/mina'
+
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
