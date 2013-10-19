@@ -14,3 +14,34 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+/vendor
+
+#IDEA
+tmp/*
+.idea/*
+log/*
+type.me.*
+dump.rdb
+.swp
+tags
+
+#Coolest Editor
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+.elc
+auto-save-list
+tramp
+
+#Coolest OS
+.DS_Store
+Icon?
+
+# Thumbnails
+._*
+
+# Files that might appear on external disk
+.Spotlight-V100
+.Trashes
+
