@@ -1,0 +1,10 @@
+{
+  "name": "TouchTypeIn",
+  "version": "0.0.1",
+  "private": true,
+
+  "dependencies": {
+    "phantomjs": "latest",
+    "mocha-phantomjs": "latest"
+  }
+}

@@ -28,6 +28,9 @@ gem 'websocket-rails'
 gem 'mongoid', git: 'https://github.com/mongoid/mongoid.git'
 gem 'bson_ext'
 
+gem 'mina', github: 'nadarei/mina'
+
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
@@ -46,5 +49,8 @@ end
 # gem 'debugger', group: [:development, :test]
 
 group :development, :test do
-	gem 'rspec-rails', '~> 2.14'
+        gem 'rspec-rails', '~> 2.14'
 end
+
+gem 'compass-rails' # you need this or you get an err
+gem 'zurb-foundation', '~> 4.0.0'
