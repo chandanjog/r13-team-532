@@ -2,12 +2,11 @@ define(["app", "text!templates/race.tpl", "ember", "underscore"], function(app, 
 
   var isValidKey = function(keyCode) {
     var rejectList = [16, 17, 18, 91, 27];
-    console.log(keyCode);
-/*    if(keyCode == 32) return true;
-    if(keyCode >= 48 && keyCode <= 57) return true;
-    if(keyCode < 65 || keyCode > 90 ) return false;
-    return true;*/
     return !rejectList.contains(keyCode);
+  };
+
+  var charForCode = function(keyCode) {
+    return String.fromCharCode(keyCode.replace("U+", "0x"));
   };
 
   app.RaceView = Ember.View.extend({
@@ -17,7 +16,7 @@ define(["app", "text!templates/race.tpl", "ember", "underscore"], function(app, 
       if(!isValidKey(event.keyCode)) return;
       var currentPosition = this.controller.get('currentPosition');
       var currentElement = this.$('#letter_'+currentPosition);
-      var classAfterValidation = String.fromCharCode(event.keyCode) == currentElement.text().toUpperCase() ? "success" : "failure"
+      var classAfterValidation = charForCode(event.originalEvent.keyIdentifier) == currentElement.text().toUpperCase() ? "success" : "failure"
       this.$('#letter_'+currentPosition).toggleClass('current '+classAfterValidation);
       this.controller.set("currentPosition", currentPosition + 1);
       currentPosition = this.controller.get('currentPosition');
