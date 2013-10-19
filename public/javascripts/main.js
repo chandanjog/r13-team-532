@@ -34,10 +34,7 @@ require.config({
 
     app.ApplicationView = Ember.View.extend({
       template: Ember.Handlebars.compile(mainTemplate),
-      templateName: "application",
-      didInsertElement: function(){
-        
-      }
+      templateName: "application"
     });
 
     app.advanceReadiness();
