@@ -13,12 +13,8 @@ WebsocketRails::EventMap.describe do
   # The above will handle an event triggered on the client like `product.new`.
 
   namespace :races do
-
-    # using a Hash to specify the target
     subscribe :create, :to => RaceController, :with_method => :create
-
-    # using the same syntax as routes.rb
     subscribe :update, 'race#update'
-
   end
+
 end
