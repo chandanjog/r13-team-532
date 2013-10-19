@@ -2,6 +2,9 @@
 
 @import "foundation_and_overrides"; //= require foundation_and_overrides
 
-.success { background: #A6EF02; }
-.failure { background: #EE7202; }
-.current { background: #A2A2EE; }
+.success { background: #D2FED2; }
+.failure { background: #FED2D2; }
+.current {
+  background: #D2D2FE;
+  font-weight: bold;
+}

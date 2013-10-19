@@ -20,9 +20,10 @@ define(["app", "text!templates/race.tpl", "ember", "underscore"], function(app, 
       this.$('#letter_'+currentPosition).toggleClass('current '+classAfterValidation);
       this.controller.set("currentPosition", currentPosition + 1);
       currentPosition = this.controller.get('currentPosition');
-      this.$('#letter_'+currentPosition).addClass('current');
+      this.$('#letter_' + currentPosition).addClass('current');
     },
     didInsertElement: function() {
+      this.$('#letter_1').addClass('current');
       return this.$().attr({ tabindex: 1 }), this.$().focus();
     }
   });
