@@ -1,5 +1,12 @@
 language: ruby
 rvm:
   - 2.0.0
+before_install:
+  - sudo apt-get update
+  - sudo apt-get install python-software-properties python g++ make
+  - sudo add-apt-repository ppa:chris-lea/node.js
+  - sudo apt-get update
+  - sudo apt-get install nodejs
+  - sudo npm install
 script:
-  - RAILS_ENV=test bundle exec rake --trace test
+  - RAILS_ENV=test bundle exec rake --trace spec:all
