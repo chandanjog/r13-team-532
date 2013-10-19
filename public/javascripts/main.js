@@ -1,4 +1,3 @@
-
 require.config({
   baseUrl: "javascripts",
   config: {
@@ -35,7 +34,10 @@ require.config({
 
     app.ApplicationView = Ember.View.extend({
       template: Ember.Handlebars.compile(mainTemplate),
-      templateName: "application"
+      templateName: "application",
+      didInsertElement: function(){
+        
+      }
     });
 
     app.advanceReadiness();
