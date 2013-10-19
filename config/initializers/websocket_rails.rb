@@ -46,3 +46,5 @@ WebsocketRails.setup do |config|
   # config.user_class = User
 
 end
+
+
