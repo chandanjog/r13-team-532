@@ -4,6 +4,6 @@
   "private": true,
 
   "dependencies": {
-    "mocha-phantomjs",
+    "mocha-phantomjs": "latest"
   }
 }
