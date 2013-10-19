@@ -25,7 +25,8 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 
 gem 'websocket-rails'
-
+gem 'mongoid', git: 'https://github.com/mongoid/mongoid.git'
+gem 'bson_ext'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
