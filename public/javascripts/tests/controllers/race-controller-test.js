@@ -6,7 +6,7 @@ describe("RaceController", function() {
       raceController.set("raceQuote", "aa b");
       var spannifiedQuote = raceController.get("spannifiedRaceQuote");
       console.log(spannifiedQuote);
-      expect(spannifiedQuote).to.equal("<span>a</span><span>a</span><span> </span><span>b</span>");
+      expect(spannifiedQuote).to.equal('<span id="letter_1">a</span><span id="letter_2">a</span><span id="letter_3"> </span><span id="letter_4">b</span>');
       done();
     });
   });
