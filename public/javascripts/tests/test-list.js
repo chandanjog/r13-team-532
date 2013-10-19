@@ -1,3 +1,5 @@
 define([], function() {
-    return [];
+    return [
+      "controllers/race-controller-test.js"
+    ];
 });

@@ -7,21 +7,21 @@
 <head>
   <meta charset="utf-8" />
 
-	<!-- Uncomment to make IE8 render like IE7 -->
-	<!-- <meta http-equiv="X-UA-Compatible" content="IE=7" /> -->
+        <!-- Uncomment to make IE8 render like IE7 -->
+        <!-- <meta http-equiv="X-UA-Compatible" content="IE=7" /> -->
 
-	<!-- Set the viewport width to device width for mobile -->
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!-- Set the viewport width to device width for mobile -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>TouchTypeIn</title>
   <script src="javascripts/lib/require.js" data-main="javascripts/main"></script>
-	<%= stylesheet_link_tag    "application" %>
-	<%= javascript_include_tag "vendor/custom.modernizr" %>
+        <%= stylesheet_link_tag    "application" %>
+        <%= javascript_include_tag "vendor/custom.modernizr" %>
   <%= csrf_meta_tags %>
   <sc>
   </head>
   <body>
-    <div id="main_content"><%= yield %></div>
+    <%= yield %>
     <%= javascript_include_tag "application" %>
   </body>
 </html>

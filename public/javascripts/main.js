@@ -27,8 +27,9 @@ require.config({
 });
 
 (function () {
-  require(["app", "ember", "text!templates/main.tpl"], function(app, Ember, mainTemplate) {
+  require(["app", "ember", "text!templates/main.tpl", "controllers/home-controller"], function(app, Ember, mainTemplate) {
     "use strict";
+
     app.ApplicationController = Ember.Controller.extend({
     });
 

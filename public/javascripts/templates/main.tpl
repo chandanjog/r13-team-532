@@ -1,3 +1,2 @@
-<div>
-  {{textarea}}
-</div>
+<div id="main_content">{{outlet}}</div>
+
