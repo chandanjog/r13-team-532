@@ -23,5 +23,10 @@ class Race
     (await_players_till - Time.now) < 0
   end
 
+  def add_player session_id
+    #debugger
+    self.players = {} if self.players.nil?
+    self.players[session_id] = {'progress' => 0}
+  end
 
 end

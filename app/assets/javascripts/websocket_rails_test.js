@@ -1,21 +1,16 @@
-//$.ready(function(){
-    var dispatcher = new WebSocketRails('localhost:3000/websocket');
+var dispatcher = new WebSocketRails('localhost:3000/websocket');
 
-    var success = function (race) {
-        console.log(race);
-    }
+var success = function (race) {
+    console.log(race);
+}
 
-    var failure = function (race) {
-        console.log(race);
-        console.log('in error');
-    }
+var failure = function (race) {
+    console.log(race);
+    console.log('in error');
+}
 
-    console.log("executing..");
-    dispatcher.trigger('races.get', '' , success, failure);
-
-    console.log(dispatcher.trigger('races.get'));
-//});
-
+console.log("executing..");
+dispatcher.trigger('races.get', '', success, failure);
 
 
 //channel = dispatcher.subscribe('race_1');
