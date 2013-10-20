@@ -18,3 +18,16 @@ namespace :spec do
   task :ruby => :test
 end
 
+namespace :dump do
+
+  desc "Sets the environment"
+  task :environment do
+    Mongoid.load!('config/mongoid.yml', :production)
+  end
+
+  desc "Dump quotes from branyquotes"
+  task :brainyquotes => :environment do
+    BrainyQuotes.new.crawl
+  end
+end
+

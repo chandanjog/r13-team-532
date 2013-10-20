@@ -1,0 +1,3 @@
+require_relative 'big_enough_spec'
+require_relative 'no_special_character_spec'
+require_relative 'not_that_big_spec'
