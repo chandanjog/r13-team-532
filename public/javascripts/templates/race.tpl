@@ -14,6 +14,3 @@
     </div>
   </div>
 </div>
-<div>
-  <input type="text" tabindex="1" id="input-sink" style="width: 0px; height: 0px" />
-</div>

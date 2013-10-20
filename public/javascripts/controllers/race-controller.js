@@ -16,6 +16,7 @@ define(["app", "text!templates/race.tpl", "ember", "underscore"], function(app, 
   app.RaceView = Ember.View.extend({
     templateName: "race",
     template: Ember.Handlebars.compile(raceTemplate),
+    classNames: ["no-outline"],
     currentLetter: function() {
       return this.$('#letter_'+this.controller.get("currentPosition")).text();
     },
@@ -39,7 +40,7 @@ define(["app", "text!templates/race.tpl", "ember", "underscore"], function(app, 
     },
     didInsertElement: function() {
       this.$('#letter_1').addClass('current');
-      return this.$('#input-sink').focus();
+      return this.$().attr({tabindex: 1}), this.$().focus();
     }
   });
 

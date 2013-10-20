@@ -12,10 +12,10 @@ module TouchTypeIn
 
     config.assets.version = '1.0'
 
-    config.assets.initialize_on_precompile = false
+    config.assets.initialize_on_precompile = true
 
     # Don't fallback to assets pipeline if a precompiled asset is missed
-    config.assets.compile = false
+    config.assets.compile = true
 
     # Generate digests for assets URLs.
     config.assets.digest = true

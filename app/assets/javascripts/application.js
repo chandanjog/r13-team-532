@@ -12,12 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require foundation
 //= require turbolinks
 //= require websocket_rails/main
 //= require_tree .
-
-
-
-
-$(document).foundation();
