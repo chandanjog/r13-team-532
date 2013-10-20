@@ -9,4 +9,19 @@ describe 'Race' do
     race.quote.class.should == ''.class
   end
 
+  it 'should return true if a race is available to join' do
+    race = Race.create
+    race.available_to_join?.should be_false
+    sleep(configatron.TIME_TO_WAIT_FOR_PLAYERS_IN_SECONDS)
+    race.available_to_join?.should be_true
+  end
+
+  it 'should add a player with 0 progress' do
+    race = Race.create
+    race.players.should be_nil
+    race.add_player 'some_session_id'
+    race.players['some_session_id'].should == {'progress' => 0}
+  end
+
+
 end

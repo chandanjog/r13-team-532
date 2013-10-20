@@ -1,3 +1,10 @@
 /*= require foundation */
 
 @import "foundation_and_overrides"; //= require foundation_and_overrides
+
+.success { background: #D2FED2; }
+.failure { background: #FED2D2; }
+.current {
+  background: #D2D2FE;
+  font-weight: bold;
+}

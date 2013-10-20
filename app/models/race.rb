@@ -1,9 +1,13 @@
 class Race
   AWAITING_PLAYERS = 'awaiting_players'
+  ACTIVE = 'active'
 
   include Mongoid::Document
   field :status, type: String, default: AWAITING_PLAYERS
   field :quote, type: String, default: ->{ quote }
+  field :players, type: Hash
+  field :created_at, type: Time, default: ->{Time.now}
+  field :await_players_till, type: Time, default: ->{ Time.now + configatron.TIME_TO_WAIT_FOR_PLAYERS_IN_SECONDS }
 
   def quote
     [
@@ -15,5 +19,14 @@ class Race
     ].sample
   end
 
+  def available_to_join?
+    (await_players_till - Time.now) < 0
+  end
+
+  def add_player session_id
+    #debugger
+    self.players = {} if self.players.nil?
+    self.players[session_id] = {'progress' => 0}
+  end
 
 end
