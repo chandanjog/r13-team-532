@@ -5,16 +5,16 @@ class Race
 
   include Mongoid::Document
   field :status, type: String, default: AWAITING_PLAYERS
-  field :quote, type: String, default: -> { quote }
+  field :quote, type: String, default: -> { quotes }
   field :players, type: Hash, default: -> { Hash.new }
   field :created_at, type: Time, default: -> { Time.now }
-  field :await_players_till, type: Time, default: -> { Time.now.utc + configatron.TIME_TO_WAIT_FOR_PLAYERS_IN_SECONDS }
+  field :await_players_till, type: Time, default: ->{ Time.now + 10 }
   field :guest_counter, type: Integer, default: 0
   index({:status => 1})
 
   before_update :add_or_update_bot_player_progress
 
-  def quote
+  def quotes
     [
         'Take up one idea. Make that one idea your life - think of it, dream of it, live on that idea. Let the brain, muscles, nerves, every part of your body, be full of that idea, and just leave every other idea alone. This is the way to success.',
         'Always be yourself, express yourself, have faith in yourself, do not go out and look for a successful personality and duplicate it.',

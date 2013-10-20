@@ -1,4 +1,4 @@
-define(["app", "text!templates/race.tpl", "ember", "underscore", "controllers/progresses-controller"], function(app, raceTemplate, Ember, _, progressesController) {
+define(["app", "text!templates/race.tpl", "ember", "underscore", "controllers/progresses-controller", "dispatcher"], function(app, raceTemplate, Ember, _, progressesController, dispatcher) {
 
   var isValidKey = function(keyCode) {
     var rejectList = [16, 17, 18, 91, 27, 8];
@@ -37,6 +37,7 @@ define(["app", "text!templates/race.tpl", "ember", "underscore", "controllers/pr
       var classAfterValidation = isCorrectKeyPress ?  "success" : "failure";
       this.$('#letter_' + currentPosition).toggleClass('current ' + classAfterValidation);
       this.updateCurrentPosition(currentPosition + 1);
+      this.controller.syncProgress();
     },
     didInsertElement: function() {
       this.$('#letter_1').addClass('current');
@@ -86,7 +87,22 @@ define(["app", "text!templates/race.tpl", "ember", "underscore", "controllers/pr
         return 0;
       var percentage = ((lastCompletedPosition - this.get("numberOfErrors")) / lastCompletedPosition) * 100;
       return Math.round(percentage * 100) / 100;
-    }.property("numberOfErrors", "lastCompletedPosition")
+    }.property("numberOfErrors", "lastCompletedPosition"),
+    updateProgress: function(updates) {
+      console.log("update progress");
+      console.log(updates);
+    },
+    syncProgress: function() {
+      return dispatcher.trigger('races.update', {'race_id': this.get("raceId"), 'player_id': this.get("playerId"), 'progress': this.get("completedProgress") });
+    }
+  });
+
+  app.RaceRoute = Ember.Route.extend({
+    setupController: function(controller, model) {
+      this._super(controller, model);
+      var channel = dispatcher.subscribe(model.raceId);
+      channel.bind('updates', controller.updateProgress);
+    }
   });
 
   return app;

@@ -10,6 +10,7 @@ define(["app", "Q"], function(app, Q) {
   };
 
   return {
-    trigger: trigger
+    trigger: trigger,
+    subscribe: app.dispatcher.subscribe
   };
 });

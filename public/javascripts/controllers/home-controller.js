@@ -10,8 +10,12 @@ define(['text!templates/home.tpl', 'ember', 'app', "dispatcher", "controllers/ra
         var self = this;
         return dispatcher.trigger('races.get', '')
           .then(function(result) {
-            return self.transitionTo("race", {
-              raceQuote: JSON.parse(result).quote
+            console.log(result);
+            var race = JSON.parse(result);
+            return self.transitionToRoute("race", {
+              raceQuote: race.quote,
+              raceId: race["_id"]["$oid"],
+              playerId: "guest_" + race["guest_counter"]
             });
           })
           .fail(function(error) {
