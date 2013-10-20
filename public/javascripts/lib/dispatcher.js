@@ -1,6 +1,6 @@
 define(["app", "Q"], function(app, Q) {
   (function() {
-    app.dispatcher = new WebSocketRails('localhost:3000/websocket');
+    app.dispatcher = new WebSocketRails(window.location.host + '/websocket');
   })();
 
   var trigger = function(message, body) {
