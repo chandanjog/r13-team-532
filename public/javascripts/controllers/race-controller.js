@@ -49,12 +49,6 @@ define(["app", "text!templates/race.tpl", "ember", "underscore", "controllers/pr
     capturedText: "",
     currentPosition: 1,
     numberOfErrors: 0,
-    userProgresses: [
-      {lastCompletedPosition: 10, raceQuote: "aaslfsjfldksfjl"},
-      {lastCompletedPosition: 20, raceQuote: "aaslfsjfldksfjl"},
-      {lastCompletedPosition: 30, raceQuote: "aaslfsjfldksfjl"},
-      {lastCompletedPosition: 40, raceQuote: "aaslfsjfldksfjl"}
-    ],
     updateNumberOfErrors: function(isCorrectKeyPress) {
       this.set("numberOfErrors", this.get("numberOfErrors") + (isCorrectKeyPress ? 0 : 1));
     },
@@ -89,8 +83,12 @@ define(["app", "text!templates/race.tpl", "ember", "underscore", "controllers/pr
       return Math.round(percentage * 100) / 100;
     }.property("numberOfErrors", "lastCompletedPosition"),
     updateProgress: function(updates) {
-      console.log("update progress");
-      console.log(updates);
+      var otherPlayers = _(updates.players).pairs().map(function(x) {
+        var progress = x[1];
+        progress.playerId = x[0];
+        return progress;
+      });
+      return otherPlayers;
     },
     syncProgress: function() {
       return dispatcher.trigger('races.update', {'race_id': this.get("raceId"), 'player_id': this.get("playerId"), 'progress': this.get("completedProgress") });
@@ -100,8 +98,13 @@ define(["app", "text!templates/race.tpl", "ember", "underscore", "controllers/pr
   app.RaceRoute = Ember.Route.extend({
     setupController: function(controller, model) {
       this._super(controller, model);
+      var otherPlayers = controller.updateProgress(model);
+      controller.set('userProgresses', otherPlayers);
       var channel = dispatcher.subscribe(model.raceId);
-      channel.bind('updates', controller.updateProgress);
+      channel.bind('updates', function(updates){
+        var otherPlayers = controller.updateProgress(updates);
+        controller.set('userProgresses', otherPlayers);
+      });
     }
   });
 

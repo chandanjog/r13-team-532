@@ -15,7 +15,8 @@ define(['text!templates/home.tpl', 'ember', 'app', "dispatcher", "controllers/ra
             return self.transitionToRoute("race", {
               raceQuote: race.quote,
               raceId: race["_id"]["$oid"],
-              playerId: "guest_" + race["guest_counter"]
+              playerId: "guest_" + race["guest_counter"],
+              players: race.players
             });
           })
           .fail(function(error) {
