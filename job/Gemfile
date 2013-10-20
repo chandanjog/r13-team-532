@@ -1,0 +1,14 @@
+source 'http://rubygems.org'
+
+gem 'redstorm'
+gem 'mina', github: 'nadarei/mina'
+
+group :topology do
+  gem 'mongoid'
+  gem 'mongoid-scroll'
+
+end
+
+group :development, :test do
+  gem 'rspec'
+end

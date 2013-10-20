@@ -1,0 +1,15 @@
+require 'bundler/gem_tasks'
+require 'rspec/core/rake_task'
+require 'mongoid'
+
+RSpec::Core::RakeTask.new(:spec)
+
+task :environment do
+  Mongoid.load!('config/mongoid.yml', :production)
+end
+
+namespace :fake do
+  task :race => :environment do
+
+  end
+end
