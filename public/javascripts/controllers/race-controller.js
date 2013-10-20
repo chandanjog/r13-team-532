@@ -9,21 +9,24 @@ define(["app", "text!templates/race.tpl", "ember", "underscore"], function(app, 
     return String.fromCharCode(keyCode.replace("U+", "0x"));
   };
 
-  var classForCurrentCharacter =  function(keyIdentifier, currentLetter) {
-    return charForCode(keyIdentifier) == currentLetter.toUpperCase() ? "success" : "failure";
-  };
-
   app.RaceView = Ember.View.extend({
     templateName: "race",
     template: Ember.Handlebars.compile(raceTemplate),
-    keyUp: function(event){
-      if(!isValidKey(event.keyCode)) return;
-      var currentPosition = this.controller.get('currentPosition');
-      var classAfterValidation = classForCurrentCharacter(event.originalEvent.keyIdentifier, this.$('#letter_'+currentPosition).text());
-      this.$('#letter_' + currentPosition).toggleClass('current ' + classAfterValidation);
-      var newPosition = currentPosition + 1;
+    currentLetter: function() {
+      return this.$('#letter_'+this.controller.get("currentPosition")).text();
+    },
+    updateCurrentPosition: function(newPosition) {
       this.controller.set("currentPosition", newPosition);
       this.$('#letter_' + newPosition).addClass('current');
+    },
+    keyUp: function(event){
+      if(!isValidKey(event.keyCode) || this.controller.get("completedProgress") >= 100) return;
+      var currentPosition = this.controller.get('currentPosition');
+      var isCorrectKeyPress = this.controller.isCorrectKey(event.originalEvent.keyIdentifier, this.currentLetter());
+      this.controller.updateNumberOfErrors(isCorrectKeyPress);
+      var classAfterValidation = isCorrectKeyPress ?  "success" : "failure";
+      this.$('#letter_' + currentPosition).toggleClass('current ' + classAfterValidation);
+      this.updateCurrentPosition(currentPosition + 1);
     },
     didInsertElement: function() {
       this.$('#letter_1').addClass('current');
@@ -35,6 +38,14 @@ define(["app", "text!templates/race.tpl", "ember", "underscore"], function(app, 
     raceQuote: "One of the coolest new features of HTML5 is WebSockets, which let us talk to the server without using AJAX requests. In this tutorial, we will review the process of running a WebSocket server in PHP, and then building a client to send and receive messages to it over the WebSocket protocol.",
     capturedText: "",
     currentPosition: 1,
+    numberOfErrors: 0,
+    updateNumberOfErrors: function(isCorrectKeyPress) {
+      this.set("numberOfErrors", this.get("numberOfErrors") + (isCorrectKeyPress ? 0 : 1));
+    },
+    isCorrectKey: function(keyIdentifier, currentLetter) {
+      console.log(charForCode(keyIdentifier) + " " + currentLetter )
+      return charForCode(keyIdentifier) == currentLetter.toUpperCase();
+    },
     spannifiedRaceQuote: function() {
       var spannifiedQuote = _.reduce(this.get('raceQuote'), function(spannifiedQuote, letter){
         var currentLetterPosition = spannifiedQuote.letterPosition + 1;
@@ -45,13 +56,16 @@ define(["app", "text!templates/race.tpl", "ember", "underscore"], function(app, 
       }, {quote: '', letterPosition: 0});
       return spannifiedQuote.quote;
     }.property('raceQuote'),
-    currentPlayerProgress: function() {
-      var quoteLength = this.get("raceQuote").length;
-      return "width: " + ((this.get("lastCompletedPosition") / quoteLength) * 100) + "%";
+    completedProgressStyle: function() {
+      return "width: " + this.get("completedProgress") + "%";
     }.property("currentPosition"),
     lastCompletedPosition: function() {
       return this.get("currentPosition") - 1;
-    }.property("currentPosition")
+    }.property("currentPosition"),
+    completedProgress: function() {
+      var quoteLength = this.get("raceQuote").length;
+      return ((this.get("lastCompletedPosition") / quoteLength) * 100);
+    }.property("lastCompletedPosition", "raceQuote")
   });
 
   return app;
