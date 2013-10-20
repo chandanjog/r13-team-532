@@ -14,7 +14,7 @@ WebsocketRails::EventMap.describe do
 
   namespace :races do
     subscribe :get, :to => RaceController, :with_method => :get
-    subscribe :update, 'race#update'
+    subscribe :update, :to => RaceController, :with_method => :update
   end
 
 end

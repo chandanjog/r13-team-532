@@ -8,6 +8,7 @@ class Race
   field :players, type: Hash
   field :created_at, type: Time, default: ->{Time.now}
   field :await_players_till, type: Time, default: ->{ Time.now + configatron.TIME_TO_WAIT_FOR_PLAYERS_IN_SECONDS }
+  field :guest_counter, type: Integer, default: 0
 
   def quote
     [
@@ -23,10 +24,10 @@ class Race
     (await_players_till - Time.now) < 0
   end
 
-  def add_player session_id
-    #debugger
+  def add_player
     self.players = {} if self.players.nil?
-    self.players[session_id] = {'progress' => 0}
+    self.guest_counter += 1
+    self.players["guest_#{self.guest_counter}"] = {'progress' => 0}
   end
 
 end

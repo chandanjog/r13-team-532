@@ -19,8 +19,11 @@ describe 'Race' do
   it 'should add a player with 0 progress' do
     race = Race.create
     race.players.should be_nil
-    race.add_player 'some_session_id'
-    race.players['some_session_id'].should == {'progress' => 0}
+    race.guest_counter.should == 0
+
+    race.add_player
+    race.players['guest_1'].should == {'progress' => 0}
+    race.guest_counter.should == 1
   end
 
 
