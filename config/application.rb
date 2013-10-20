@@ -8,17 +8,9 @@ Bundler.require(:default, Rails.env)
 
 module TouchTypeIn
   class Application < Rails::Application
-    config.assets.enabled = true
+    config.assets.enabled = false
 
     config.assets.version = '1.0'
-
-    config.assets.initialize_on_precompile = false
-
-    # Don't fallback to assets pipeline if a precompiled asset is missed
-    config.assets.compile = false
-
-    # Generate digests for assets URLs.
-    config.assets.digest = true
 
     require_relative "app_config"
   end
