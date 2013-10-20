@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-md-8 col-md-offset-2">
       <div class="well">
-        <p class="text-center">Dude this is a text that needs to be changed.</p>
+        <p class="text-center">Test your typing speed and accuracy.</p>
       </div>
     </div>
   </div>

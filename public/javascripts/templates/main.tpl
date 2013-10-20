@@ -5,11 +5,6 @@
         <div class="navbar-header">
           <span class="navbar-brand pull-left">Touch Type In</span>
         </div>
-        <ul class="nav navbar-nav navbar-right">
-          <li>
-            <a>Register</a>
-          </li>
-        </ul>
       </div>
     </div>
   </div>
