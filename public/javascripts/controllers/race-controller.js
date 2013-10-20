@@ -9,18 +9,21 @@ define(["app", "text!templates/race.tpl", "ember", "underscore"], function(app, 
     return String.fromCharCode(keyCode.replace("U+", "0x"));
   };
 
+  var classForCurrentCharacter =  function(keyIdentifier, currentLetter) {
+    return charForCode(keyIdentifier) == currentLetter.toUpperCase() ? "success" : "failure";
+  };
+
   app.RaceView = Ember.View.extend({
     templateName: "race",
     template: Ember.Handlebars.compile(raceTemplate),
     keyUp: function(event){
       if(!isValidKey(event.keyCode)) return;
       var currentPosition = this.controller.get('currentPosition');
-      var currentElement = this.$('#letter_'+currentPosition);
-      var classAfterValidation = charForCode(event.originalEvent.keyIdentifier) == currentElement.text().toUpperCase() ? "success" : "failure"
-      this.$('#letter_'+currentPosition).toggleClass('current '+classAfterValidation);
-      this.controller.set("currentPosition", currentPosition + 1);
-      currentPosition = this.controller.get('currentPosition');
-      this.$('#letter_' + currentPosition).addClass('current');
+      var classAfterValidation = classForCurrentCharacter(event.originalEvent.keyIdentifier, this.$('#letter_'+currentPosition).text());
+      this.$('#letter_' + currentPosition).toggleClass('current ' + classAfterValidation);
+      var newPosition = currentPosition + 1;
+      this.controller.set("currentPosition", newPosition);
+      this.$('#letter_' + newPosition).addClass('current');
     },
     didInsertElement: function() {
       this.$('#letter_1').addClass('current');
@@ -41,8 +44,15 @@ define(["app", "text!templates/race.tpl", "ember", "underscore"], function(app, 
         };
       }, {quote: '', letterPosition: 0});
       return spannifiedQuote.quote;
-    }.property('raceQuote')
+    }.property('raceQuote'),
+    currentPlayerProgress: function() {
+      var quoteLength = this.get("raceQuote").length;
+      return "width: " + ((this.get("lastCompletedPosition") / quoteLength) * 100) + "%";
+    }.property("currentPosition"),
+    lastCompletedPosition: function() {
+      return this.get("currentPosition") - 1;
+    }.property("currentPosition")
   });
 
   return app;
-})
+});
