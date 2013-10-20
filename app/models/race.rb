@@ -7,7 +7,7 @@ class Race
   field :quote, type: String, default: ->{ quote }
   field :players, type: Hash
   field :created_at, type: Time, default: ->{Time.now}
-  field :await_players_till, type: Time, default: ->{ Time.now + configatron.TIME_TO_WAIT_FOR_PLAYERS_IN_SECONDS }
+  field :await_players_till, type: Time, default: ->{ Time.now + 10 }
   field :guest_counter, type: Integer, default: 0
 
   def quote

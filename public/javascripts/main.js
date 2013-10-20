@@ -12,8 +12,9 @@ require.config({
     handlebars: 'lib/handlebars-1.0.0',
     ember: 'lib/ember',
     text: 'lib/text-loader-plugin',
-    Q: "lib/q",
-    underscore: "lib/underscore"
+    Q: "lib/q.min",
+    underscore: "lib/underscore",
+    dispatcher: "lib/dispatcher"
   },
   shim: {
     'ember': {
@@ -22,12 +23,15 @@ require.config({
     },
     underscore: {
       exports: "_"
+    },
+    'Q': {
+      exports: 'Q'
     }
   }
 });
 
 (function () {
-  require(["app", "ember", "text!templates/main.tpl", "controllers/home-controller"], function(app, Ember, mainTemplate) {
+  require(["app", "ember", "text!templates/main.tpl", "controllers/home-controller", "dispatcher"], function(app, Ember, mainTemplate) {
     "use strict";
 
     app.ApplicationController = Ember.Controller.extend({

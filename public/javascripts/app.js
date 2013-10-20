@@ -9,7 +9,7 @@ define(["ember"], function(Ember) {
   app.Router = Ember.Router.extend({enableLogging:true});
   app.Router.map(function () {
     this.resource('home', {path: '/' });
-    this.resource('race', {path: '/race'});
+    this.resource('race', {path: '/race/:race_id'});
   });
 
   app.deferReadiness();

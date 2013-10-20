@@ -8,10 +8,10 @@ Bundler.require(:default, Rails.env)
 
 module TouchTypeIn
   class Application < Rails::Application
-    config.assets.enabled = true
+    # config.assets.enabled = true
 
-    config.assets.version = '1.0'
+    # config.assets.version = '1.0'
 
-    require_relative "app_config"
+    # require_relative "app_config"
   end
 end

@@ -4,7 +4,9 @@ describe("RaceController", function() {
 
   it("should spannify the quote text", function(done) {
     require(["app", "controllers/race-controller"], function(app, raceController) {
-      var raceController = app.RaceController.create();
+      var raceController = app.RaceController.create({
+        content: {raceQuote: ""}
+      });
       raceController.set("raceQuote", "aa b");
       var spannifiedQuote = raceController.get("spannifiedRaceQuote");
       expect(spannifiedQuote).to.equal('<span id="letter_1">a</span><span id="letter_2">a</span><span id="letter_3"> </span><span id="letter_4">b</span>');
@@ -14,7 +16,9 @@ describe("RaceController", function() {
 
   it("should get current player progress from quote length and current progress", function(done) {
     require(["app", "controllers/race-controller"], function(app, raceController) {
-      var raceController = app.RaceController.create();
+      var raceController = app.RaceController.create({
+        content: {raceQuote: ""}
+      });
       raceController.set("raceQuote", "aabbccddee");
       raceController.set("currentPosition", 3);
       var completedProgress = raceController.get("completedProgress");
