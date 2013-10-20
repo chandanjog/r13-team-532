@@ -44,11 +44,6 @@ task :install => :environment do
   queue "bundle install --without test:development"
 end
 
-task :assets => :environment do
-  queue "bundle exec rake assets:precompile RAILS_ENV=production"
-end
-
-
 desc "Deploys the current version to the server."
 task :deploy => :environment do
   deploy do
@@ -57,7 +52,7 @@ task :deploy => :environment do
     invoke :'git:clone'
     invoke :'deploy:link_shared_paths'
     invoke :install
-    #invoke :assets
+    invoke :'rails:assets_precompile'
 
     to :launch do
       queue "touch #{deploy_to}/tmp/restart.txt"
