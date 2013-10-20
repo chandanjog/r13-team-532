@@ -64,7 +64,12 @@ define(["app", "text!templates/race.tpl", "ember", "underscore"], function(app, 
     completedProgress: function() {
       var quoteLength = this.get("raceQuote").length;
       return ((this.get("lastCompletedPosition") / quoteLength) * 100);
-    }.property("lastCompletedPosition", "raceQuote")
+    }.property("lastCompletedPosition", "raceQuote"),
+    accuracy: function() {
+      var lastCompletedPosition = this.get("lastCompletedPosition");
+      var percentage = ((lastCompletedPosition - this.get("numberOfErrors")) / lastCompletedPosition) * 100;
+      return Math.round(percentage * 100) / 100;
+    }.property("numberOfErrors", "lastCompletedPosition")
   });
 
   return app;

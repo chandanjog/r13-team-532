@@ -71,4 +71,14 @@ describe("RaceController", function() {
       });
     });
   });
+
+  it("should return accuracy percentage", function(done) {
+    require(["app", "controllers/race-controller"], function(app, raceController) {
+      var raceController = app.RaceController.create();
+      raceController.set("numberOfErrors", 7);
+      raceController.set("lastCompletedPosition", 20);
+      expect(raceController.get("accuracy")).to.equal(65);
+      done();
+    });
+  });
 });
