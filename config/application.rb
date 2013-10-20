@@ -12,6 +12,6 @@ module TouchTypeIn
     
     config.assets.version = '1.0'
 
-    # config.assets.precompile +=  %w( )
+    config.assets.compile = true
   end
 end
