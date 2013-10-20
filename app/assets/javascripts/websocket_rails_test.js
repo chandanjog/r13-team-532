@@ -13,7 +13,8 @@ var success = function (race_raw) {
 
     var channel = dispatcher.subscribe(race_id);
     channel.bind('updates', function(race) {
-        console.log('updated::'+ race);
+        console.log("updated::");
+        console.log(race);
     });
 
     dispatcher.trigger('races.update', {'race_id': race_id, 'player_id': player_id, 'progress': 30 }, function(){
