@@ -1,12 +1,16 @@
 define(["app", "text!templates/race.tpl", "ember", "underscore"], function(app, raceTemplate, Ember, _) {
 
   var isValidKey = function(keyCode) {
-    var rejectList = [16, 17, 18, 91, 27];
+    var rejectList = [16, 17, 18, 91, 27, 8];
     return !rejectList.contains(keyCode);
   };
 
-  var charForCode = function(keyCode) {
-    return String.fromCharCode(keyCode.replace("U+", "0x"));
+  var charForCode = function(keyCode, shiftKeyStatus) {
+    var keyChar = String.fromCharCode(keyCode.replace("U+", "0x"));
+    if(shiftKeyStatus) {
+      return keyChar;
+    }
+    return keyChar.toLowerCase();
   };
 
   app.RaceView = Ember.View.extend({
@@ -19,10 +23,15 @@ define(["app", "text!templates/race.tpl", "ember", "underscore"], function(app, 
       this.controller.set("currentPosition", newPosition);
       this.$('#letter_' + newPosition).addClass('current');
     },
+    keyDown: function(event) {
+      if(event.keyCode != 8) return;
+      event.stopPropagation();
+      event.preventDefault();
+    },
     keyUp: function(event){
       if(!isValidKey(event.keyCode) || this.controller.get("completedProgress") >= 100) return;
       var currentPosition = this.controller.get('currentPosition');
-      var isCorrectKeyPress = this.controller.isCorrectKey(event.originalEvent.keyIdentifier, this.currentLetter());
+      var isCorrectKeyPress = this.controller.isCorrectKey(event.originalEvent.keyIdentifier, event.shiftKey, this.currentLetter());
       this.controller.updateNumberOfErrors(isCorrectKeyPress);
       var classAfterValidation = isCorrectKeyPress ?  "success" : "failure";
       this.$('#letter_' + currentPosition).toggleClass('current ' + classAfterValidation);
@@ -30,7 +39,7 @@ define(["app", "text!templates/race.tpl", "ember", "underscore"], function(app, 
     },
     didInsertElement: function() {
       this.$('#letter_1').addClass('current');
-      return this.$().attr({ tabindex: 1 }), this.$().focus();
+      return this.$('#input-sink').focus();
     }
   });
 
@@ -42,8 +51,8 @@ define(["app", "text!templates/race.tpl", "ember", "underscore"], function(app, 
     updateNumberOfErrors: function(isCorrectKeyPress) {
       this.set("numberOfErrors", this.get("numberOfErrors") + (isCorrectKeyPress ? 0 : 1));
     },
-    isCorrectKey: function(keyIdentifier, currentLetter) {
-      return charForCode(keyIdentifier) == currentLetter.toUpperCase();
+    isCorrectKey: function(keyIdentifier, shiftKeyStatus, currentLetter) {
+      return charForCode(keyIdentifier, shiftKeyStatus) == currentLetter;
     },
     spannifiedRaceQuote: function() {
       var spannifiedQuote = _.reduce(this.get('raceQuote'), function(spannifiedQuote, letter){
