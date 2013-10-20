@@ -13,7 +13,7 @@ development:
       options:
         # Change the default write concern. (default = { w: 1 })
         # write:
-        w: 1
+        # w: 1
 
         # Change the default consistency model to primary, secondary.
         # 'secondary' will send reads to secondaries, 'primary' sends everything
