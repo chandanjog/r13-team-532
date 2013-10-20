@@ -1,9 +1,13 @@
 class Race
   AWAITING_PLAYERS = 'awaiting_players'
+  ACTIVE = 'active'
 
   include Mongoid::Document
   field :status, type: String, default: AWAITING_PLAYERS
   field :quote, type: String, default: ->{ quote }
+  field :players, type: Hash
+  field :created_at, type: Time, default: ->{Time.now}
+  field :await_players_till, type: Time, default: ->{ Time.now + configatron.TIME_TO_WAIT_FOR_PLAYERS_IN_SECONDS }
 
   def quote
     [
@@ -13,6 +17,10 @@ class Race
         'There is no end to education. It is not that you read a book, pass an examination, and finish with education. The whole of life, from the moment you are born to the moment you die, is a process of learning.',
         'The person, be it gentleman or lady, who has not pleasure in a good novel, must be intolerably stupid.'
     ].sample
+  end
+
+  def available_to_join?
+    (await_players_till - Time.now) < 0
   end
 
 

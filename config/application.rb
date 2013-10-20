@@ -13,5 +13,6 @@ module TouchTypeIn
     config.assets.version = '1.0'
 
     # config.assets.precompile +=  %w( )
+    require_relative "app_config"
   end
 end

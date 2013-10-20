@@ -24,17 +24,19 @@ gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
 
-gem 'websocket-rails'
+gem 'websocket-rails', git: 'https://github.com/websocket-rails/websocket-rails.git'
 gem 'mongoid', git: 'https://github.com/mongoid/mongoid.git'
 gem 'bson_ext'
 
 gem 'mina', github: 'nadarei/mina'
+gem 'configatron'
 
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
 end
+
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
@@ -50,6 +52,8 @@ end
 
 group :development, :test do
         gem 'rspec-rails', '~> 2.14'
+        gem "database_cleaner", "~> 1.2.0"
+        gem 'debugger'
 end
 
 gem 'compass-rails' # you need this or you get an err
