@@ -4,7 +4,11 @@
     <div class="row">
       <div class="col-md-8">
         <div class="well">
-          <div id="race_progresses">
+        {{view App.ProgressesView viewName="progresses"}}
+        </div>
+        <h5>My Progress</h5>
+        <div class="well">
+          <div id="curretn_user_progresses">
             <div class="row">
               <div class="col-md-10">
                 <div class="progress">
@@ -18,12 +22,10 @@
           </div>
           <div class="row">
             <div class="col-md-6">
-              <label>Errors: </label>
-              {{numberOfErrors}}
+              <label>Errors: </label> {{numberOfErrors}}
             </div>
             <div class="col-md-6">
-              <label>Accuracy: </label>
-              {{accuracy}}%
+              <label>Accuracy: </label> {{accuracy}}%
             </div>
           </div>
         </div>

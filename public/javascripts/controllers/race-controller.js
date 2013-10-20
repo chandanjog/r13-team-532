@@ -1,4 +1,4 @@
-define(["app", "text!templates/race.tpl", "ember", "underscore"], function(app, raceTemplate, Ember, _) {
+define(["app", "text!templates/race.tpl", "ember", "underscore", "controllers/progresses-controller"], function(app, raceTemplate, Ember, _, progressesController) {
 
   var isValidKey = function(keyCode) {
     var rejectList = [16, 17, 18, 91, 27, 8];
@@ -50,9 +50,16 @@ define(["app", "text!templates/race.tpl", "ember", "underscore"], function(app, 
 
   app.RaceController = Ember.ObjectController.extend({
     raceQuote: "One of the coolest new features of HTML5 is WebSockets, which let us talk to the server without using AJAX requests. In this tutorial, we will review the process of running a WebSocket server in PHP, and then building a client to send and receive messages to it over the WebSocket protocol.",
+    needs: ["progresses"],
     capturedText: "",
     currentPosition: 1,
     numberOfErrors: 0,
+    userProgresses: [
+      {lastCompletedPosition: 10, raceQuote: "aaslfsjfldksfjl"},
+      {lastCompletedPosition: 20, raceQuote: "aaslfsjfldksfjl"},
+      {lastCompletedPosition: 30, raceQuote: "aaslfsjfldksfjl"},
+      {lastCompletedPosition: 40, raceQuote: "aaslfsjfldksfjl"}
+    ],
     updateNumberOfErrors: function(isCorrectKeyPress) {
       this.set("numberOfErrors", this.get("numberOfErrors") + (isCorrectKeyPress ? 0 : 1));
     },
