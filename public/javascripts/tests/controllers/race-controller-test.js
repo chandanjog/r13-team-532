@@ -1,9 +1,18 @@
 describe("RaceController", function() {
   "use strict";
   /*globals it:false, require:false, expect:false */
+  var injector;
+
+  beforeEach(function(done) {
+    require(["squire"], function(squire) {
+      injector = new squire();
+      injector.mock("dispatcher", {});
+      done();
+    });
+  });
 
   it("should spannify the quote text", function(done) {
-    require(["app", "controllers/race-controller"], function(app, raceController) {
+    injector.require(["app", "controllers/race-controller"], function(app, raceController) {
       var raceController = app.RaceController.create({
         content: {raceQuote: ""}
       });
@@ -15,7 +24,7 @@ describe("RaceController", function() {
   });
 
   it("should get current player progress from quote length and current progress", function(done) {
-    require(["app", "controllers/race-controller"], function(app, raceController) {
+    injector.require(["app", "controllers/race-controller"], function(app, raceController) {
       var raceController = app.RaceController.create({
         content: {raceQuote: ""}
       });
@@ -28,7 +37,7 @@ describe("RaceController", function() {
   });
 
   it("should get last completed position from current position", function(done) {
-    require(["app", "controllers/race-controller"], function(app, raceController) {
+    injector.require(["app", "controllers/race-controller"], function(app, raceController) {
       var raceController = app.RaceController.create();
       raceController.set("currentPosition", 5);
       var lastCompletedPosition = raceController.get("lastCompletedPosition");
@@ -38,7 +47,7 @@ describe("RaceController", function() {
   });
 
   it("should get completedProgressStyle from current position", function(done) {
-    require(["app", "controllers/race-controller"], function(app, raceController) {
+    injector.require(["app", "controllers/race-controller"], function(app, raceController) {
       var raceController = app.RaceController.create();
       raceController.set("completedProgress", 5);
       var lastCompletedPosition = raceController.get("completedProgressStyle");
@@ -49,7 +58,7 @@ describe("RaceController", function() {
 
   describe("validate key", function() {
     it("should match from charcode of currentKey and expectedKey", function(done) {
-      require(["app", "controllers/race-controller"], function(app, raceController) {
+      injector.require(["app", "controllers/race-controller"], function(app, raceController) {
         var raceController = app.RaceController.create();
         var isCorrect = raceController.isCorrectKey("U+0045", true, "E");
         expect(isCorrect).to.be.true;
@@ -58,7 +67,7 @@ describe("RaceController", function() {
     });
 
     it("should be case sensitivity", function(done) {
-      require(["app", "controllers/race-controller"], function(app, raceController) {
+      injector.require(["app", "controllers/race-controller"], function(app, raceController) {
         var raceController = app.RaceController.create();
         var isCorrect = raceController.isCorrectKey("U+0045", false, "e");
         expect(isCorrect).to.be.true;
@@ -67,7 +76,7 @@ describe("RaceController", function() {
     });
 
     it("should return false is characters does not match", function(done) {
-      require(["app", "controllers/race-controller"], function(app, raceController) {
+      injector.require(["app", "controllers/race-controller"], function(app, raceController) {
         var raceController = app.RaceController.create();
         var isCorrect = raceController.isCorrectKey("U+0045", false, "g");
         expect(isCorrect).to.be.false;
@@ -77,7 +86,7 @@ describe("RaceController", function() {
   });
 
   it("should return accuracy percentage", function(done) {
-    require(["app", "controllers/race-controller"], function(app, raceController) {
+    injector.require(["app", "controllers/race-controller"], function(app, raceController) {
       var raceController = app.RaceController.create();
       raceController.set("numberOfErrors", 7);
       raceController.set("lastCompletedPosition", 20);

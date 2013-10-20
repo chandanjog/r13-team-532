@@ -16,8 +16,8 @@ require.config({
     Q: "lib/q",
     underscore: "lib/underscore",
     testList: "tests/test-list",
-    squire: "lib/squire/squire",
-    sinon: "lib/sinon/sinon"
+    squire: "lib/squire",
+    sinon: "lib/sinon"
   },
   shim: {
     mocha: {
