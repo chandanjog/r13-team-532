@@ -1,16 +1,36 @@
-<h5>Race here</h5>
 <div class="row">
-  <div class="col-md-8">
-    <div id="race_progresses">
-      <div class="progress">
-        <span id="current_player_progress" {{bind-attr style=completedProgressStyle}} class="progress-bar"></span>
+  <div class="col-lg-11 col-lg-offset-2">
+    <h5>Race here</h5>
+    <div class="row">
+      <div class="col-md-8">
+        <div class="well">
+          <div id="race_progresses">
+            <div class="row">
+              <div class="col-md-10">
+                <div class="progress">
+                  <span id="current_player_progress" {{bind-attr style=completedProgressStyle}} class="progress-bar"></span>
+                </div>
+              </div>
+              <div class="col-md-2">
+                {{lastCompletedPosition}}/{{raceQuote.length}}
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <label>Errors: </label>
+              {{numberOfErrors}}
+            </div>
+            <div class="col-md-6">
+              <label>Accuracy: </label>
+              {{accuracy}}%
+            </div>
+          </div>
         </div>
-      <div>{{lastCompletedPosition}}/{{raceQuote.length}}</div>
-      <div>Errors: {{numberOfErrors}}</div>
-      <div>Accuracy: {{accuracy}}%</div>
-    </div>
-    <div class="panel">
-      <div>{{{spannifiedRaceQuote}}}</div>
+        <div class="quote">
+          <div>{{{spannifiedRaceQuote}}}</div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

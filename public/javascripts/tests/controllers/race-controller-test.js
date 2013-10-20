@@ -47,7 +47,7 @@ describe("RaceController", function() {
     it("should match from charcode of currentKey and expectedKey", function(done) {
       require(["app", "controllers/race-controller"], function(app, raceController) {
         var raceController = app.RaceController.create();
-        var isCorrect = raceController.isCorrectKey("U+0045", false, "E");
+        var isCorrect = raceController.isCorrectKey("U+0045", true, "E");
         expect(isCorrect).to.be.true;
         done();
       });
@@ -56,7 +56,7 @@ describe("RaceController", function() {
     it("should be case sensitivity", function(done) {
       require(["app", "controllers/race-controller"], function(app, raceController) {
         var raceController = app.RaceController.create();
-        var isCorrect = raceController.isCorrectKey("U+0045", true, "e");
+        var isCorrect = raceController.isCorrectKey("U+0045", false, "e");
         expect(isCorrect).to.be.true;
         done();
       });

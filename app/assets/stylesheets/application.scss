@@ -1,9 +1,15 @@
-.success { background: #D2FED2; }
-.failure { background: #FED2D2; }
+.success { color: limegreen; }
+.failure { color: #FF030D; }
 .current {
   background: #D2D2FE;
+  font-size: 21px;
   font-weight: bold;
 }
 .no-outline {
   outline: none;
+}
+.quote {
+  -webkit-box-border: 1px;
+  font-family: monospace;
+  font-size: 18px;
 }
