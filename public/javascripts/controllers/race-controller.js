@@ -43,7 +43,6 @@ define(["app", "text!templates/race.tpl", "ember", "underscore"], function(app, 
       this.set("numberOfErrors", this.get("numberOfErrors") + (isCorrectKeyPress ? 0 : 1));
     },
     isCorrectKey: function(keyIdentifier, currentLetter) {
-      console.log(charForCode(keyIdentifier) + " " + currentLetter )
       return charForCode(keyIdentifier) == currentLetter.toUpperCase();
     },
     spannifiedRaceQuote: function() {
@@ -58,7 +57,7 @@ define(["app", "text!templates/race.tpl", "ember", "underscore"], function(app, 
     }.property('raceQuote'),
     completedProgressStyle: function() {
       return "width: " + this.get("completedProgress") + "%";
-    }.property("currentPosition"),
+    }.property("completedProgress"),
     lastCompletedPosition: function() {
       return this.get("currentPosition") - 1;
     }.property("currentPosition"),

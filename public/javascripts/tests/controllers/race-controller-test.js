@@ -17,8 +17,8 @@ describe("RaceController", function() {
       var raceController = app.RaceController.create();
       raceController.set("raceQuote", "aabbccddee");
       raceController.set("currentPosition", 3);
-      var currentPlayerProgress = raceController.get("currentPlayerProgress");
-      expect(currentPlayerProgress).to.equal("width: 20%");
+      var completedProgress = raceController.get("completedProgress");
+      expect(completedProgress).to.equal(20);
       done();
     });
   });
@@ -30,6 +30,45 @@ describe("RaceController", function() {
       var lastCompletedPosition = raceController.get("lastCompletedPosition");
       expect(lastCompletedPosition).to.equal(4);
       done();
+    });
+  });
+
+  it("should get completedProgressStyle from current position", function(done) {
+    require(["app", "controllers/race-controller"], function(app, raceController) {
+      var raceController = app.RaceController.create();
+      raceController.set("completedProgress", 5);
+      var lastCompletedPosition = raceController.get("completedProgressStyle");
+      expect(lastCompletedPosition).to.equal("width: 5%");
+      done();
+    });
+  });
+
+  describe("validate key", function() {
+    it("should match from charcode of currentKey and expectedKey", function(done) {
+      require(["app", "controllers/race-controller"], function(app, raceController) {
+        var raceController = app.RaceController.create();
+        var isCorrect = raceController.isCorrectKey("U+0045", "E");
+        expect(isCorrect).to.be.true;
+        done();
+      });
+    });
+
+    it("should not worry about case sensitivity", function(done) {
+      require(["app", "controllers/race-controller"], function(app, raceController) {
+        var raceController = app.RaceController.create();
+        var isCorrect = raceController.isCorrectKey("U+0045", "e");
+        expect(isCorrect).to.be.true;
+        done();
+      });
+    });
+
+    it("should return false is characters does not match", function(done) {
+      require(["app", "controllers/race-controller"], function(app, raceController) {
+        var raceController = app.RaceController.create();
+        var isCorrect = raceController.isCorrectKey("U+0045", "g");
+        expect(isCorrect).to.be.false;
+        done();
+      });
     });
   });
 });
