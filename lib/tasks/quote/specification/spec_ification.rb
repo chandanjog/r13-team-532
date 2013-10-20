@@ -8,8 +8,8 @@ module Spec
       Generic::Or.new([self, spec])
     end
 
-    def not(spec)
-      Generic::Not.new([self, spec])
+    def not()
+      Generic::Not.new([self])
     end
 
     def predicate
