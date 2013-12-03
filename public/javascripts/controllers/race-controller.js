@@ -5,14 +5,6 @@ define(["app", "text!templates/race.tpl", "ember", "underscore", "controllers/pr
     return !rejectList.contains(keyCode);
   };
 
-  var charForCode = function(keyCode, shiftKeyStatus) {
-    var keyChar = String.fromCharCode(keyCode.replace("U+", "0x"));
-    if(shiftKeyStatus) {
-      return keyChar;
-    }
-    return keyChar.toLowerCase();
-  };
-
   app.RaceView = Ember.View.extend({
     templateName: "race",
     template: Ember.Handlebars.compile(raceTemplate),
@@ -29,10 +21,10 @@ define(["app", "text!templates/race.tpl", "ember", "underscore", "controllers/pr
       event.stopPropagation();
       event.preventDefault();
     },
-    keyUp: function(event){
-      if(!isValidKey(event.keyCode) || this.controller.get("completedProgress") >= 100) return;
+    keyPress: function(event){
+      if(!isValidKey(event.charCode) || this.controller.get("completedProgress") >= 100) return;
       var currentPosition = this.controller.get('currentPosition');
-      var isCorrectKeyPress = this.controller.isCorrectKey(event.originalEvent.keyIdentifier, event.shiftKey, this.currentLetter());
+      var isCorrectKeyPress = String.fromCharCode(event.charCode) == this.currentLetter();
       this.controller.updateNumberOfErrors(isCorrectKeyPress);
       var classAfterValidation = isCorrectKeyPress ?  "success" : "failure";
       this.$('#letter_' + currentPosition).toggleClass('current ' + classAfterValidation);
@@ -51,9 +43,6 @@ define(["app", "text!templates/race.tpl", "ember", "underscore", "controllers/pr
     numberOfErrors: 0,
     updateNumberOfErrors: function(isCorrectKeyPress) {
       this.set("numberOfErrors", this.get("numberOfErrors") + (isCorrectKeyPress ? 0 : 1));
-    },
-    isCorrectKey: function(keyIdentifier, shiftKeyStatus, currentLetter) {
-      return charForCode(keyIdentifier, shiftKeyStatus) == currentLetter;
     },
     spannifiedRaceQuote: function() {
       var spannifiedQuote = _.reduce(this.get('raceQuote'), function(spannifiedQuote, letter){

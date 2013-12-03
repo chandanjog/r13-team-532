@@ -1,0 +1,6 @@
+Firefox keycode failure while typing.i
+Chrome routing does not work on reload.
+Wait for the game to start and disallow players from typing in.
+Recheck the key press event. Seems it is not accepting valid keys.
+Package this as an ios and android app.
+Support oauth registrations and logins and track progress against it.
