@@ -8,6 +8,9 @@ class RaceController < WebsocketRails::BaseController
   end
 
   def update
+    puts "*"*100
+    puts message
+
     race_id = message['race_id']
 
     race = Race.find(race_id);
