@@ -56,35 +56,6 @@ describe("RaceController", function() {
     });
   });
 
-  describe("validate key", function() {
-    it("should match from charcode of currentKey and expectedKey", function(done) {
-      injector.require(["app", "controllers/race-controller"], function(app, raceController) {
-        var raceController = app.RaceController.create();
-        var isCorrect = raceController.isCorrectKey("U+0045", true, "E");
-        expect(isCorrect).to.be.true;
-        done();
-      });
-    });
-
-    it("should be case sensitivity", function(done) {
-      injector.require(["app", "controllers/race-controller"], function(app, raceController) {
-        var raceController = app.RaceController.create();
-        var isCorrect = raceController.isCorrectKey("U+0045", false, "e");
-        expect(isCorrect).to.be.true;
-        done();
-      });
-    });
-
-    it("should return false is characters does not match", function(done) {
-      injector.require(["app", "controllers/race-controller"], function(app, raceController) {
-        var raceController = app.RaceController.create();
-        var isCorrect = raceController.isCorrectKey("U+0045", false, "g");
-        expect(isCorrect).to.be.false;
-        done();
-      });
-    });
-  });
-
   it("should return accuracy percentage", function(done) {
     injector.require(["app", "controllers/race-controller"], function(app, raceController) {
       var raceController = app.RaceController.create();

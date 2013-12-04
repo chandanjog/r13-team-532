@@ -14,7 +14,7 @@ define(['text!templates/home.tpl', 'ember', 'app', "dispatcher", "controllers/ra
             var race = JSON.parse(result);
             return self.transitionToRoute("race", {
               raceQuote: race.quote,
-              raceId: race["_id"]["$oid"],
+              race_id: race["_id"]["$oid"],
               playerId: "guest_" + race["guest_counter"],
               players: race.players
             });

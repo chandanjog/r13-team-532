@@ -89,12 +89,20 @@ define(["app", "text!templates/race.tpl", "ember", "underscore", "controllers/pr
       this._super(controller, model);
       var otherPlayers = controller.updateProgress(model);
       controller.set('userProgresses', otherPlayers);
+      
       var channel = dispatcher.subscribe(model.raceId);
       channel.bind('updates', function(updates){
         var otherPlayers = controller.updateProgress(updates);
         controller.set('userProgresses', otherPlayers);
       });
+    },
+    serialize: function(model){
+      return model;
     }
+    
+//   model: function(params){
+//     return nil;
+//   }
   });
 
   return app;
